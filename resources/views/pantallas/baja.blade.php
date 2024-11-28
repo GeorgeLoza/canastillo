@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('titulo')
-Dashboard
+bajas
 @endsection
 
 @section('contenido')
