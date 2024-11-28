@@ -20,7 +20,7 @@ class Consultausuario extends Component
     public function mount()
     {
         // Cargar usuarios e ítems al iniciar
-        $this->users = User::all();
+        $this->users = User::where('rol','cliente')->get();
         $this->items = Item::all();
     }
 
@@ -28,7 +28,7 @@ class Consultausuario extends Component
     {
         // Filtrar movimientos por el usuario seleccionado
         $this->movements = Movimiento::with(['detalles', 'detalles.item'])
-            ->where('user_id', $userId)
+            ->where('transporte_cliente', $userId)
             ->get()
             ->map(function ($movement) {
                 $data = [
@@ -49,11 +49,11 @@ class Consultausuario extends Component
 
     public function calculateTotals()
     {
-        
+
     }
     public function render()
     {
-        
+
         return view('livewire.consultas.consultausuario');
     }
 

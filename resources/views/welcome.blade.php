@@ -6,5 +6,5 @@ Dashboard
 
 @section('contenido')
     @livewire('consultas.consultausuario')
-@livewire('dashboard.resumen')
+{{-- @livewire('dashboard.resumen') --}}
 @endsection
