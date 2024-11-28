@@ -99,7 +99,7 @@
 
                 <!-- Botón para guardar -->
                 <div class="mt-4">
-                    <button type="submit" class="w-full bg-green-600 text-white rounded-md px-4 py-2">Actualizar
+                    <button type="submit" class="w-full bg-green-600 text-white rounded-md px-4 py-2">Editar
                     </button>
                     <div wire:loading>
                         <div

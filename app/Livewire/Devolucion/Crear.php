@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Despacho;
+namespace App\Livewire\Devolucion;
 
 use Livewire\Component;
 use App\Models\almacen;
@@ -17,8 +17,8 @@ class Crear extends ModalComponent
     public $identificador;
     public $transporteClienteLista;
     public $transporte_cliente_id;
-    public $movimiento = "Egreso";
-    public $tipo_movimiento = "Despacho";
+    public $movimiento = "Ingreso";
+    public $tipo_movimiento = "Devolucion";
     public $observaciones;
 
     public $detalles = []; // Arreglo para almacenar los detalles del movimiento
@@ -42,7 +42,7 @@ class Crear extends ModalComponent
     }
     public function render()
     {
-        return view('livewire.despacho.crear');
+        return view('livewire.devolucion.crear');
     }
 
     public function addDetalle()
@@ -83,11 +83,11 @@ class Crear extends ModalComponent
         }
 
         $this->closeModal();
-            $this->dispatch('tablaDespacho');
-            Toaster::success('Despacho creado exitosamente!');
+            $this->dispatch('tablaDevolucion');
+            Toaster::success('Devolucion creado exitosamente!');
 
         } catch (\Throwable $th) {
-            Toaster::error('Fallo al momento de crear la despacho: ' . $th->getMessage());
+            Toaster::error('Fallo al momento de crear la devolucion: ' . $th->getMessage());
         }
 
     }

@@ -5,7 +5,7 @@
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-3 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white capitalize">
-                    Registrar despacho
+                    Registrar devolución
                 </h3>
                 <button type="button" wire:click="cerrar"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -99,7 +99,7 @@
 
                 <!-- Botón para guardar -->
                 <div class="mt-4">
-                    <button type="submit" class="w-full bg-green-600 text-white rounded-md px-4 py-2">Crear</button>
+                    <button type="submit" class="w-full bg-green-600 text-white rounded-md px-4 py-2">Editar</button>
                 </div>
                 <div wire:loading>
                     <div

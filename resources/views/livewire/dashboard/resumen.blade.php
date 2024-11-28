@@ -1,0 +1,3 @@
+<div>
+    {{$movimientos}}
+</div>

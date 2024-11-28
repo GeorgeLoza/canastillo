@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Despacho;
+namespace App\Livewire\Devolucion;
 
 use Livewire\Component;
 use App\Models\almacen;
@@ -18,8 +18,8 @@ class Editar extends ModalComponent
     public $identificador;
     public $transporteClienteLista;
     public $transporte_cliente_id;
-    public $movimiento = "Egreso";
-    public $tipo_movimiento = "Despacho";
+    public $movimiento = "Ingreso";
+    public $tipo_movimiento = "Devolucion";
     public $observaciones;
 
     public $detalles = []; // Arreglo para almacenar los detalles del movimiento
@@ -30,17 +30,17 @@ class Editar extends ModalComponent
 
     public function mount($id)
     {
-        // Cargar la despacho y sus detalles
-        $despacho = movimiento::with('detalles')->findOrFail($id);
-        $this->transporte_cliente_id = $despacho->transporte_cliente;
-        $this->identificador = $despacho->identificador;
-        $this->observaciones = $despacho->observaciones;
-        $this->detalles = $despacho->detalles->toArray();
+        // Cargar la devolucion y sus detalles
+        $devolucion = movimiento::with('detalles')->findOrFail($id);
+        $this->transporte_cliente_id = $devolucion->transporte_cliente;
+        $this->identificador = $devolucion->identificador;
+        $this->observaciones = $devolucion->observaciones;
+        $this->detalles = $devolucion->detalles->toArray();
 
         // Cargar ítems y almacenes para los selects
         $this->items = item::all();
         $this->almacenes = almacen::all();
-        $this->transporteClienteLista = User::where('rol','Cliente')->get();
+        $this->transporteClienteLista = User::where('rol', 'Cliente')->get();
     }
 
     public function addDetalle()
@@ -60,16 +60,16 @@ class Editar extends ModalComponent
     {
         $this->validate([
             'identificador' => 'required',
-        'transporte_cliente_id' => 'required',
-        'observaciones' => 'nullable',
-        'detalles.*.item_id' => 'required|exists:items,id',
-        'detalles.*.cantidad' => 'required|numeric|min:1',
+            'transporte_cliente_id' => 'required',
+            'observaciones' => 'nullable',
+            'detalles.*.item_id' => 'required|exists:items,id',
+            'detalles.*.cantidad' => 'required|numeric|min:1',
         ]);
 
         try {
             // Actualizar la compra
-            $despacho = movimiento::findOrFail($this->id);
-            $despacho->update([
+            $devolucion = movimiento::findOrFail($this->id);
+            $devolucion->update([
                 'transporte_cliente' => $this->transporte_cliente_id,
                 'identificador' => $this->identificador,
                 'observaciones' => $this->observaciones,
@@ -77,24 +77,25 @@ class Editar extends ModalComponent
             ]);
 
             // Actualizar los detalles
-            $despacho->detalles()->delete(); // Eliminar los detalles actuales
+            $devolucion->detalles()->delete(); // Eliminar los detalles actuales
             foreach ($this->detalles as $detalle) {
-                $despacho->detalles()->create([
+                $devolucion->detalles()->create([
                     'item_id' => $detalle['item_id'],
                     'cantidad' => $detalle['cantidad'],
                 ]);
             }
             $this->closeModal();
-            $this->dispatch('tablaDespacho');
-            Toaster::success('Despacho actualizada exitosamente!');
+            $this->dispatch('tablaDevolucion');
+            Toaster::success('Devolucion actualizada exitosamente!');
         } catch (\Throwable $th) {
-            Toaster::error('Fallo al momento de editar la despacho: ' . $th->getMessage());
+            dd($th);
+            Toaster::error('Fallo al momento de editar la devolucion: ' . $th->getMessage());
         }
     }
 
     public function render()
     {
-        return view('livewire.despacho.editar');
+        return view('livewire.devolucion.editar');
     }
     public function cerrar()
     {
