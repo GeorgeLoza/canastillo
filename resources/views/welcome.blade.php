@@ -5,5 +5,5 @@ Dashboard
 @endsection
 
 @section('contenido')
-
+    @livewire('consultas.consultausuario')
 @endsection
