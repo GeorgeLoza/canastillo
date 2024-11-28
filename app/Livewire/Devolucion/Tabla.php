@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Compra;
+namespace App\Livewire\Devolucion;
 
-use App\Models\Movimiento;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use App\Models\movimiento;
+use Livewire\Attributes\On;
+
 use Livewire\WithPagination;
 use Masmerise\Toaster\Toaster;
-
 class Tabla extends Component
 {
     use WithPagination;
@@ -31,14 +31,14 @@ class Tabla extends Component
         }
     }
 
-    #[On('tablaCompra')]
+    #[On('tablaDevolucion')]
     public function render()
     {
         // Obtenemos los movimientos con sus detalles, usuarios y almacenes
-        $movimientos = Movimiento::with(['detalles.item', 'almacen', 'despachador'])->where('tipo_movimiento','Compra')
+        $movimientos = Movimiento::with(['detalles.item', 'almacen', 'despachador'])->where('tipo_movimiento','Devolucion')
             ->paginate(10);
 
-        return view('livewire.compra.tabla', [
+        return view('livewire.devolucion.tabla', [
             'movimientos' => $movimientos,
         ]);
     }
@@ -56,11 +56,11 @@ class Tabla extends Component
             $movimiento->delete();
 
             // Actualizar la tabla de usuarios en la interfaz y mostrar el mensaje de éxito
-            $this->dispatch('tablaCompra');
-            Toaster::success('La compra fue eliminado exitosamente!');
+            $this->dispatch('tablaDevolucion');
+            Toaster::success('La devolucion fue eliminado exitosamente!');
         } catch (\Throwable $th) {
             // Mostrar mensaje de error en caso de falla
-            Toaster::error('Fallo al momento de eliminar la compra!');
+            Toaster::error('Fallo al momento de eliminar el devolucion!');
         }
     }
 }
