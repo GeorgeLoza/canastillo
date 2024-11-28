@@ -35,7 +35,7 @@ class Tabla extends Component
     public function render()
     {
         // Obtenemos los movimientos con sus detalles, usuarios y almacenes
-        $movimientos = Movimiento::with(['detalles.item', 'almacen', 'despachador'])
+        $movimientos = Movimiento::with(['detalles.item', 'almacen', 'despachador'])->where('tipo_movimiento','Compra')
             ->paginate(10);
 
         return view('livewire.compra.tabla', [

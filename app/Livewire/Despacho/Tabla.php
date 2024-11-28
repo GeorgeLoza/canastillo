@@ -31,11 +31,11 @@ class Tabla extends Component
         }
     }
 
-    #[On('tablaCompra')]
+    #[On('tablaDespacho')]
     public function render()
     {
         // Obtenemos los movimientos con sus detalles, usuarios y almacenes
-        $movimientos = movimiento::where()->with(['detalles.item', 'almacen', 'despachador'])
+        $movimientos = Movimiento::with(['detalles.item', 'almacen', 'despachador'])->where('tipo_movimiento','Despacho')
             ->paginate(10);
 
         return view('livewire.despacho.tabla', [

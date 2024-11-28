@@ -10,5 +10,5 @@
 @endsection
 
 @section('contenido')
-    @livewire('despacho.tabla')
+@livewire('despacho.tabla')
 @endsection
