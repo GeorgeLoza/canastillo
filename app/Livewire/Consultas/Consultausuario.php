@@ -42,13 +42,13 @@ class Consultausuario extends Component
                     $detalle = $movement->detalles->firstWhere('item_id', $item->id);
                     $data['items'][$item->id] = $detalle ? $detalle->cantidad : 0;
                 }
-                
+
                 return $data;
             });
 
         // Calcular totales
-            
-        
+
+
         $this->calculateTotals();
     }
 
@@ -68,7 +68,7 @@ class Consultausuario extends Component
                 'movimiento' => $movimiento,
                 'cantidad' => $cantidad,
             ]);
-        
+
 
             if ($movimiento == 'Ingreso') {
                 return $cantidad; // Suma para ingresos
@@ -79,7 +79,7 @@ class Consultausuario extends Component
             return 0; // Si no es ingreso ni egreso, no afecta el total
         });
     }
-   
+
 }
     public function render()
     {
